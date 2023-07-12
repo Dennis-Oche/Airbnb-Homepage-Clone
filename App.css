@@ -7,7 +7,7 @@
 }
 
 html {
-  font-size: 100%;
+  font-size: 100%; 
 } /*16px*/
 
 :root {
@@ -191,7 +191,7 @@ hr {
   background: var(--backgroundColor);
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   padding: 1rem 2.5rem;
   width: 100%;
 }
@@ -358,22 +358,21 @@ hr {
   border-bottom: 1px solid var(--grey-200);
   display: flex;
   margin: 0 auto;
-  gap: 2.5rem;
+  gap: 2rem;
   background: var(--grey-100);
   position: fixed;
   top: 5rem;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   padding: 2.3rem 9.2rem 1rem 2.5rem;
   width: 100%;
   overflow-x: scroll;
+  white-space: nowrap;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .filter-group::-webkit-scrollbar {
   display: none;
-}
-.filter-group {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 .single-filter {
   display: flex;
@@ -394,15 +393,19 @@ hr {
   cursor: pointer;
   border-bottom: 1px solid var(--grey-400);
 }
-
 .filter-btn {
   border: none;
   cursor: pointer;
 }
-
 .filter-img {
   height: 1.5rem;
   width: 1.5rem;
+  transition: var(--transition);
+}
+.filter-img:hover {
+  cursor: pointer;
+  scale: 1.2;
+  transition: var(--transition);
 }
 .filters-btn {
   position: fixed;
@@ -438,15 +441,27 @@ hr {
   align-items: center;
   justify-content: center;
   border: 1px solid rgb(148, 148, 148);
+  transition: var(--transition);
 }
-.right {
+.scrollbtn:hover {
+  cursor: pointer;
+  scale: 1.1;
+  transition: var(--transition);
+}
+.filter-right {
   position: fixed;
   top: 7.6rem;
   right: 9rem;
   z-index: 2;
 }
-.right * {
+.filter-right * {
   margin-right: -2px;
+}
+.filter-left {
+  position: fixed;
+  top: 7.6rem;
+  left: 3rem;
+  z-index: 2;
 }
 .blurry-right {
   background: var(--grey-100);
@@ -456,6 +471,17 @@ hr {
   top: 6rem;
   right: -0.8rem;
   border-radius: 20px;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+}
+.blurry-left {
+  background: var(--grey-100);
+  width: 12.5rem;
+  height: 5rem;  
+  position: fixed;
+  top: 6rem;
+  left: -6rem;
+  border-radius: 10px;
   filter: blur(5px);
   -webkit-filter: blur(5px);
 }
@@ -514,11 +540,13 @@ hr {
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1;
 }
 .like-btn:hover {
   color: var(--red-dark);
-  transform: translateY(-2px);
-}.like-btn-selected {
+  scale: 0.9;
+}
+.like-btn-selected {
   background: transparent;
   border: transparent;
   color: red;
@@ -529,16 +557,17 @@ hr {
   position: absolute;
   top: 20px;
   right: 20px;
+  z-index: 1;
 }
 .like-btn-selected:hover {
-  color: var(--grey-500);
-  transform: translateY(2px);
+  scale: 0.95;
 }
 
 footer p {
   margin: -3px 0;
 }
 .footer {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
@@ -557,11 +586,87 @@ footer p {
 .fade {
   opacity: 0.7;
 }
+.bs-dot {
+  margin-bottom: -3px;
+}
 .price {
   font-weight: 700;
 }
 .str-price {
   margin-top: 5px;
+}
+.str-price:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+/* Carousel */
+.carousel {
+  position: relative;
+  border-radius: 10px;
+  max-width: 650px;
+  margin: auto;
+  overflow: hidden;
+}
+.carousel img {
+  border-radius: 8px;
+}
+.slide_direction {
+  display: flex;
+  justify-content: space-between;
+}
+.left,
+.right {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.8);
+  margin: 0 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 10px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition);
+}
+.left:hover,
+.right:hover {
+  scale: 1.1;  
+  transition: var(--transition);
+}
+.left {
+  left: 0;
+}
+.btn-hide{
+  display: none;
+}
+.right {
+  right: 0;
+  z-index: 0;
+}
+.right-arrow, .left-arrow {
+  scale: 0.8;
+}
+.indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.dot {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.active {
+  background-color: #fa2020;
 }
 
 
@@ -581,8 +686,9 @@ footer p {
   align-items: center;
   justify-content: center;
   border-radius: 100px;
-  opacity: 0.88;
+  opacity: 0.97;
   cursor: pointer;
+  transition: var(--transition);
 }
 .map:hover {
   width: 132px;
@@ -620,6 +726,7 @@ footer p {
   display: flex;
   font-size: 14px;
   margin-left: 2.5rem;
+  align-items: center;
 }
 .left-group * {
   margin-right: 3px;
@@ -642,6 +749,10 @@ footer p {
 .underline:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+.svg-box {
+  margin-left: 5px;
+  padding-top: 3px;
 }
 .footer-logo {
   display: flex;
